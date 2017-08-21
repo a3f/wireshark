@@ -210,6 +210,7 @@ typedef struct _e_prefs {
   gchar       *capture_devices_pmode;
   gchar       *capture_devices_filter; /* XXX - Mostly unused. Deprecate? */
   gboolean     capture_prom_mode;
+  gboolean     capture_default_to_hw_tstamps;
   gboolean     capture_pcap_ng;
   gboolean     capture_real_time;
   gboolean     capture_auto_scroll;

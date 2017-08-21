@@ -1274,6 +1274,14 @@ PLEASE NOTE: One option MUST be selected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Whether this request can be honored is platform and hardware dependent. Some hardware may only support timestamping incoming packets leading to different time bases for incoming and outgoing packets. Further, it's unspecified whether the timestamps are in UTC or TAI. In both cases no synchronization with the system clock is requested. This is equivalent to specifying --time-stamp-type=adapter_unsynced on the command line.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Request hardware timestamps of packets by default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capture packets in the next-generation capture file format.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>

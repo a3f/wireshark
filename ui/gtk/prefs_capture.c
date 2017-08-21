@@ -51,6 +51,7 @@
 
 #define DEVICE_KEY		"device"
 #define PROM_MODE_KEY		"prom_mode"
+#define HW_TSTAMP_KEY		"default_to_hw_tstamps"
 #define PCAP_NG_KEY		"pcap_ng"
 #define CAPTURE_REAL_TIME_KEY	"capture_real_time"
 #define AUTO_SCROLL_KEY		"auto_scroll"
@@ -111,6 +112,7 @@ static void ifopts_write_new_descr(void);
 static void ifopts_write_new_hide(void);
 static void ifopts_write_new_pmode(void);
 static void prom_mode_cb(GtkToggleButton *tbt, gpointer udata);
+static void default_to_hw_tstamps_cb(GtkToggleButton *tbt, gpointer udata);
 
 /* Columns options dialog */
 #ifdef HAVE_PCAP_CREATE
@@ -129,7 +131,7 @@ GtkWidget*
 capture_prefs_show(void)
 {
 	GtkWidget	*main_grid;
-	GtkWidget	*if_cbxe, *if_lb, *promisc_cb, *pcap_ng_cb, *sync_cb, *auto_scroll_cb, *show_info_cb;
+	GtkWidget	*if_cbxe, *if_lb, *promisc_cb, *hw_tstamp_cb, *pcap_ng_cb, *sync_cb, *auto_scroll_cb, *show_info_cb;
 	GtkWidget	*ifopts_lb, *ifopts_bt, *colopts_lb, *colopts_bt;
 	GList		*if_list, *combo_list;
 	int		err;
@@ -211,6 +213,18 @@ capture_prefs_show(void)
 	g_signal_connect(promisc_cb, "toggled", G_CALLBACK(prom_mode_cb), NULL);
 	g_object_set_data(G_OBJECT(capture_window), PROM_MODE_KEY, promisc_cb);
 
+	/* Hardware Timestamping */
+	hw_tstamp_cb = create_preference_check_button(main_grid, row++,
+	    "Request hardware timestamps of packets by default",
+	    "Whether this request can be honored is platform and hardware dependent."
+	    "Some hardware may only support timestamping incoming packets leading to different time bases for incoming and outgoing packets. "
+	    "Further, it's unspecified whether the timestamps are in UTC or TAI. "
+	    "In both cases no synchronization with the system clock is requested. "
+	    "This is equivalent to specifying --time-stamp-type=adapter_unsynced on the command line. ",
+	    prefs.capture_default_to_hw_tstamps);
+	g_signal_connect(hw_tstamp_cb, "toggled", G_CALLBACK(default_to_hw_tstamps_cb), NULL);
+	g_object_set_data(G_OBJECT(capture_window), HW_TSTAMP_KEY, hw_tstamp_cb);
+
 	/* Pcap-NG format */
 	pcap_ng_cb = create_preference_check_button(main_grid, row++,
 	    "Capture packets in pcap-ng format:",
@@ -263,15 +277,16 @@ capture_prefs_show(void)
 void
 capture_prefs_fetch(GtkWidget *w)
 {
-	GtkWidget *if_cbxe, *promisc_cb, *pcap_ng_cb, *sync_cb, *auto_scroll_cb, *show_info_cb;
+	GtkWidget *if_cbxe, *promisc_cb, *hw_tstamp_cb, *pcap_ng_cb, *sync_cb, *auto_scroll_cb, *show_info_cb;
 	gchar	*if_text;
 
-	if_cbxe    = (GtkWidget *)g_object_get_data(G_OBJECT(w), DEVICE_KEY);
-	promisc_cb = (GtkWidget *)g_object_get_data(G_OBJECT(w), PROM_MODE_KEY);
-	pcap_ng_cb = (GtkWidget *)g_object_get_data(G_OBJECT(w), PCAP_NG_KEY);
-	sync_cb    = (GtkWidget *)g_object_get_data(G_OBJECT(w), CAPTURE_REAL_TIME_KEY);
+	if_cbxe        = (GtkWidget *)g_object_get_data(G_OBJECT(w), DEVICE_KEY);
+	promisc_cb     = (GtkWidget *)g_object_get_data(G_OBJECT(w), PROM_MODE_KEY);
+	hw_tstamp_cb   = (GtkWidget *)g_object_get_data(G_OBJECT(w), HW_TSTAMP_KEY);
+	pcap_ng_cb     = (GtkWidget *)g_object_get_data(G_OBJECT(w), PCAP_NG_KEY);
+	sync_cb        = (GtkWidget *)g_object_get_data(G_OBJECT(w), CAPTURE_REAL_TIME_KEY);
 	auto_scroll_cb = (GtkWidget *)g_object_get_data(G_OBJECT(w), AUTO_SCROLL_KEY);
-	show_info_cb = (GtkWidget *)g_object_get_data(G_OBJECT(w), SHOW_INFO_KEY);
+	show_info_cb   = (GtkWidget *)g_object_get_data(G_OBJECT(w), SHOW_INFO_KEY);
 
 	if_text = g_strdup(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(if_cbxe)))));
 	/* Strip out white space */
@@ -292,6 +307,8 @@ capture_prefs_fetch(GtkWidget *w)
 	prefs.capture_device = if_text;
 
 	prefs.capture_prom_mode = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(promisc_cb));
+
+	prefs.capture_default_to_hw_tstamps = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(hw_tstamp_cb));
 
 	prefs.capture_pcap_ng = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pcap_ng_cb));
 
@@ -2202,6 +2219,11 @@ ifopts_write_new_hide(void)
 static void
 prom_mode_cb(GtkToggleButton *tbt, gpointer udata _U_) {
 	prefs.capture_prom_mode = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tbt));
+}
+
+static void
+default_to_hw_tstamps_cb(GtkToggleButton *tbt, gpointer udata _U_) {
+	prefs.capture_default_to_hw_tstamps = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tbt));
 }
 
 #endif /* HAVE_LIBPCAP */

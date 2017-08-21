@@ -46,6 +46,7 @@ CapturePreferencesFrame::CapturePreferencesFrame(QWidget *parent) :
 
     pref_device_ = prefFromPrefPtr(&prefs.capture_device);
     pref_prom_mode_ = prefFromPrefPtr(&prefs.capture_prom_mode);
+    pref_default_to_hw_tstamps_ = prefFromPrefPtr(&prefs.capture_default_to_hw_tstamps);
     pref_pcap_ng_ = prefFromPrefPtr(&prefs.capture_pcap_ng);
     pref_real_time_ = prefFromPrefPtr(&prefs.capture_real_time);
     pref_auto_scroll_ = prefFromPrefPtr(&prefs.capture_auto_scroll);

@@ -53,6 +53,7 @@ private:
 
     pref_t *pref_device_;
     pref_t *pref_prom_mode_;
+    pref_t *pref_default_to_hw_tstamps_;
     pref_t *pref_pcap_ng_;
     pref_t *pref_real_time_;
     pref_t *pref_auto_scroll_;

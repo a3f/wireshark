@@ -1284,6 +1284,14 @@ Achtung: Eine Option MUSS ausgewählt sein.</translation>
         <translation>Pakete im promiskuitiven Modus mitschneiden</translation>
     </message>
     <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Whether this request can be honored is platform and hardware dependent. Some hardware may only support timestamping incoming packets leading to different time bases for incoming and outgoing packets. Further, it's unspecified whether the timestamps are in UTC or TAI. In both cases no synchronization with the system clock is requested. This is equivalent to specifying --time-stamp-type=adapter_unsynced on the command line.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ob die Anfrage erfüllt werden kann, ist Platform- und Hardware-abhängig. Manche Hardware könnte nur die Zeitstemplung eingehender Pakete unterstützen, was zu unterschiedlichen Zeitbasen für eingehende und ausgehende Pakete führt. Des Weiteren ist es unspezifiziert, ob Zeistempel in UTC oder TAI sind. In beiden Fällen wird eine Synchronisierung mit der Systemuhr nicht angefordert. Dies ist gleichbedeutend mit der Angabe von --time-stamp-type=adapter auf der Kommandozeile.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>Hardware-Zeitstemplung von Paketen standardmäßig anfordern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Capture packets in the next-generation capture file format.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pakete im pcapng Dateiformat aufzeichnen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>

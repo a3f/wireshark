@@ -48,11 +48,12 @@ prefs_to_capture_opts(void)
 #ifdef HAVE_LIBPCAP
   /* Set promiscuous mode from the preferences setting. */
   /* the same applies to other preferences settings as well. */
-    global_capture_opts.default_options.promisc_mode = prefs.capture_prom_mode;
-    global_capture_opts.use_pcapng                   = prefs.capture_pcap_ng;
-    global_capture_opts.show_info                    = prefs.capture_show_info; /* GTK+ only */
-    global_capture_opts.real_time_mode               = prefs.capture_real_time;
-    auto_scroll_live                                 = prefs.capture_auto_scroll;
+    global_capture_opts.default_options.promisc_mode   = prefs.capture_prom_mode;
+    global_capture_opts.default_options.timestamp_type = prefs.capture_default_to_hw_tstamps ? "adapter_unsynced" : NULL;
+    global_capture_opts.use_pcapng                     = prefs.capture_pcap_ng;
+    global_capture_opts.show_info                      = prefs.capture_show_info; /* GTK+ only */
+    global_capture_opts.real_time_mode                 = prefs.capture_real_time;
+    auto_scroll_live                                   = prefs.capture_auto_scroll;
 #endif /* HAVE_LIBPCAP */
 }
 

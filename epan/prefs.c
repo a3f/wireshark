@@ -3429,6 +3429,9 @@ prefs_register_modules(void)
     prefs_register_bool_preference(capture_module, "prom_mode", "Capture in promiscuous mode",
         "Capture in promiscuous mode?", &prefs.capture_prom_mode);
 
+    prefs_register_bool_preference(capture_module, "default_to_hw_tstamps", "Default to hardware timestamping",
+        "Default to hardware timestamping?", &prefs.capture_default_to_hw_tstamps);
+
     register_string_like_preference(capture_module, "devices_filter", "Interface capture filter",
         "Interface capture filter (Ex: en0(tcp),en1(udp),...)",
         &prefs.capture_devices_filter, PREF_STRING, NULL, FALSE);
@@ -4092,6 +4095,7 @@ pre_init_prefs(void)
 
 /* set the default values for the capture dialog box */
     prefs.capture_prom_mode             = TRUE;
+    prefs.capture_default_to_hw_tstamps = FALSE;
 #ifdef PCAP_NG_DEFAULT
     prefs.capture_pcap_ng               = TRUE;
 #else

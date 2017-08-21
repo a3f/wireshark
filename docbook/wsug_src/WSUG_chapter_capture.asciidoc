@@ -386,6 +386,16 @@ promiscuous mode when capturing. If you do not specify this Wireshark will only
 capture the packets going to or from your computer (not all packets on your LAN
 segment).
 
+_Request hardware timestamps of packets by default_::
+This checkbox allows you to specify that Wireshark should always request
+hardware timestamping of packets unless instructed otherwise. Whether this
+request can be honored is platform and hardware dependent. Some hardware may
+only support timestamping incoming packets leading to different time bases for
+incoming and outgoing packets. Further, it's unspecified whether the timestamps
+are in UTC or TAI. In both cases no synchronization with the system clock is
+requested. This is equivalent to specifying --time-stamp-type=adapter_unsynced
+on the command line.
+
 [NOTE]
 ====
 If some other process has put the interface in promiscuous mode you may be
